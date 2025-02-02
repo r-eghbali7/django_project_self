@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{static 'css/bootstrap.min.css'}">
-    {% block other_meta %}{% endblock other_meta %}
+    {% block css %}{% endblock css %}
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        
+    </nav>
     {% block content %} {% endblock content %}
 </body>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
