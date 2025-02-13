@@ -1,0 +1,8 @@
+<div class="col-lg-12">
+  <form method="post" action="{% url 'blog:post_detail'  post.created_date.year post.created_date.month post.created_date.day post.slug %}" class="comment-form my-5" id="comment-form">
+    {% csrf_token %}
+    <h4 class="mb-4">Write a comment</h4>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,9 @@
+{% load popular_post_tag %}
+<div class="sidebar-widget tags mb-3">
+    <h5 class="mb-4">Tags</h5>
+    {% for tag in tag_list %}
+        <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+            {{ tag.name }}
+        </a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</div>

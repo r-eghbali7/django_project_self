@@ -1,5 +1,5 @@
 {% load static %} 
-
+{% load popular_post_tag %}
 
 <div class="col-lg-4">
     <div class="sidebar-wrap pl-lg-4 mt-5 mt-lg-0">
@@ -13,69 +13,37 @@
 
       <div class="sidebar-widget latest-post mb-3">
         <h5>Popular Posts</h5>
-
+        {% for posts in popular_posts %}
         <div class="py-2">
-          <span class="text-sm text-muted">03 Mar 2018</span>
+          <span class="text-sm text-muted">{{ posts.created_date }}</span>
           <h6 class="my-2">
-            <a href="#">Thoughtful living in los Angeles</a>
+            <a href="{{ posts.get_absolute_url }}">{{ posts.title }}</a>
           </h6>
         </div>
-
-        <div class="py-2">
-          <span class="text-sm text-muted">03 Mar 2018</span>
-          <h6 class="my-2">
-            <a href="#">Vivamus molestie gravida turpis.</a>
-          </h6>
-        </div>
-
-        <div class="py-2">
-          <span class="text-sm text-muted">03 Mar 2018</span>
-          <h6 class="my-2">
-            <a href="#">Fusce lobortis lorem at ipsum semper sagittis</a>
-          </h6>
-        </div>
+        {% endfor %}
       </div>
 
       <div class="sidebar-widget category mb-3">
         <h5 class="mb-4">Categories</h5>
 
         <ul class="list-unstyled">
+          {% for category in category_list %}
           <li class="align-items-center">
-            <a href="#">Medicine</a>
-            <span>(14)</span>
+            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+            <span>({% count_posts category %})</span>
           </li>
-          <li class="align-items-center">
-            <a href="#">Equipments</a>
-            <span>(2)</span>
-          </li>
-          <li class="align-items-center">
-            <a href="#">Heart</a>
-            <span>(10)</span>
-          </li>
-          <li class="align-items-center">
-            <a href="#">Free counselling</a>
-            <span>(5)</span>
-          </li>
-          <li class="align-items-center">
-            <a href="#">Lab test</a>
-            <span>(5)</span>
-          </li>
+          {% endfor %}
         </ul>
       </div>
 
       <div class="sidebar-widget tags mb-3">
         <h5 class="mb-4">Tags</h5>
-
-        <a href="#">Doctors</a>
-        <a href="#">agency</a>
-        <a href="#">company</a>
-        <a href="#">medicine</a>
-        <a href="#">surgery</a>
-        <a href="#">Marketing</a>
-        <a href="#">Social Media</a>
-        <a href="#">Branding</a>
-        <a href="#">Laboratory</a>
-      </div>
+        {% for tag in common_tags %}
+            <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+                {{ tag.name }}
+            </a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </div>
 
       <div class="sidebar-widget schedule-widget mb-3">
         <h5 class="mb-4">Time Schedule</h5>
@@ -105,17 +73,3 @@
   </div>
 </div>
 
-<div class="row mt-5">
-  <div class="col-lg-8">
-    <nav class="pagination py-2 d-inline-block">
-      <div class="nav-links">
-        <span aria-current="page" class="page-numbers current">1</span>
-        <a class="page-numbers" href="#">2</a>
-        <a class="page-numbers" href="#">3</a>
-        <a class="page-numbers" href="#"
-          ><i class="icofont-thin-double-right"></i
-        ></a>
-      </div>
-    </nav>
-  </div>
-</div>

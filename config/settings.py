@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Third Party Apps
     "crispy_forms",
     "crispy_bootstrap5",
+    "taggit",
     # My Apps
     'blog',
     'home',
@@ -68,6 +69,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Custom context processors
+                'blog.context_processors.category_list',
             ],
         },
     },

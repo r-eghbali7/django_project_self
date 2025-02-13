@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Category,Post, Comment
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -9,7 +9,7 @@ class CommentAdmin(admin.ModelAdmin):
     
 @admin.register(Post)    
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'author', 'created_date', 'status']
+    list_display = ['title', 'slug', 'author', 'created_date', 'status','tag_list']
     list_filter = ['status', 'created_date', 'update_date']
     search_fields = ['title', 'text']
     prepopulated_fields = {'slug': ('title',)}
@@ -17,3 +17,15 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     ordering = ['status', 'created_date']
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')
+
+    def tag_list(self, obj):
+        return u", ".join(o.name for o in obj.tags.all())
+    
+    
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
+    
